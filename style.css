@@ -1,3 +1,30 @@
 body {
   margin: 0;
+  height: 100vh;
+  width: 100vw;
+  background-color: #0a072c;
+  overflow: hidden;
+}
+
+h1 {
+  color: #eae9fc;
+  text-align: center;
+  padding-bottom: 5rem;
+}
+
+#board {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-template-rows: repeat(3, 1fr);
+  height: 600px;
+  width: 600px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.cell {
+  height: 200px;
+  width: 200px;
+  background-color: #100b45;
+  border: 1px solid #eae9fc;
 }
