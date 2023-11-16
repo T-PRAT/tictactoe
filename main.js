@@ -44,10 +44,8 @@ function writeSVG(isPlayer, i) {
 function changeBorder(isPlayer) {
   if (isPlayer) {
     document.getElementById("board").style.borderColor = "rgba(210, 224, 56, 0.7)";
-    board[i] = "X";
   } else {
     document.getElementById("board").style.borderColor = "rgba(242, 69, 141, 0.7)";
-    board[i] = "O";
   }
 }
 
@@ -65,7 +63,9 @@ function play(i) {
     }
     // delai random entre 1s et 3s pour que le bot joue
     setTimeout(() => {
-      writeSVG(false, bot_function(board));
+      let botCase = bot_function(board);
+      writeSVG(false, botCase);
+      board[botCase] = "O";
       changeBorder(true);
     }, 1000);
   }
