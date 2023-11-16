@@ -29,15 +29,14 @@ function is_Dispo(emplacementTableJeux, tableauJeux){
 
 //Fonction de choix aléatoir du positionnement de l'element
 export default function drop_Element_alea(tableauJeux){
-    let choixBon = true
-    let caseJouee
-    while(choixBon){
-        console.log(tableauJeux)
-        caseJouee = Math.floor(Math.random() * tableauJeux.length)
-        if(is_Dispo(caseJouee,tableauJeux)){
-            choixBon = false
-            return caseJouee
+    let tableauIndiceCaseVide = []
+    for(let i=0; i<tableauJeux.length;i++){
+        if(tableauJeux[i]==''){
+            tableauIndiceCaseVide.push(i)
         }
     }
-    
+    let indiceChoisie = Math.floor(Math.random() * tableauIndiceCaseVide.length)
+    console.log(tableauIndiceCaseVide)
+    console.log(tableauIndiceCaseVide[indiceChoisie])
+    return tableauIndiceCaseVide[indiceChoisie]
 }
