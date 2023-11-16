@@ -52,22 +52,30 @@ function changeBorder(isPlayer) {
 
 // Function pour enregistrer l'input du joueur et du bot
 function play(i) {
-  changeBorder(false);
   // Checker si la case sélectionnée n'est pas occupée ou si le jeu n'est pas terminé. Si ces conditions sont remplies, placer le symbole du joueur actuel dans la case.
   if (board[i] === "" && !isGameOver()) {
     board[i] = "X";
     writeSVG(true, i);
     if (isGameOver()) {
-      alert("Game Over"); // Si la function isGameOver est vrai une alerte aparait avec Game Over
+      alert("Player Won !"); // Si la function isGameOver est vrai une alerte aparait avec Player Won
       return;
     }
     // delai random entre 1s et 3s pour que le bot joue
     setTimeout(() => {
       let botCase = bot_function(board);
-      writeSVG(false, botCase);
-      board[botCase] = "O";
+      if (board[botCase] === "") {
+        writeSVG(false, botCase);
+        board[botCase] = "O";
+        if (isGameOver()) {
+          alert("Bot Won !"); // Si la function isGameOver est vrai une alerte aparait avec Bot Won
+          return;
+        }
+      }
       changeBorder(true);
     }, 1000);
+    changeBorder(false); 
+  } else {
+    isPlayerTurn = true; // Retourner au tour du joueur le placement est invalide
   }
 };
 
@@ -76,11 +84,11 @@ function isGameOver() {
   // Ici le for loop check si une des combinaisons est presente dans le tableau
   for (let i = 0; i < winnerLine.length; i++) {
     const [a, b, c] = winnerLine[i];
-    if (
-      board[a] !== "" &&
-      board[a] === board[b] &&
-      board[a] === board[c]
-    ) {
+      if (
+        board[a] !== "" &&
+        board[a] === board[b] &&
+        board[a] === board[c]
+      ) {
       return true; // Si une combinaison est présente le loop va se terminer et donc le jeu est terminé
     }
   }
