@@ -1,5 +1,4 @@
 //Fichier d'execution du scripte du bot
-import './index.css'
 
 //Création des Constantes utilisées par le bot
 const cell  = document.querySelectorAll('.cell')
