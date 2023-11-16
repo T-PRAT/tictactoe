@@ -60,7 +60,7 @@ function play(i) {
       return;
     }
     // Si joueur est le bot peut-etre l'appeller comme ça?
-    writeSVG(false, bot_function());
+    writeSVG(false, bot_function(tablueDeJeu));
   }
 };
 

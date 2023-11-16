@@ -3,8 +3,6 @@
 //Création des Constantes utilisées par le bot
 const cell  = document.querySelectorAll('.cell')
 
-let tablueDeJeu = ["", "", "", "", "", "", "", "", ""];
-
 // Combinaisons possibles pour gagner
 const merciGoogle = [
     [0, 1, 2],
@@ -17,11 +15,10 @@ const merciGoogle = [
     [2, 4, 6],
   ];
 const formeBot = "O";
-is_Dispo()
 
 //Fonction de vérification si la case est disponible
-function is_Dispo(emplacementTableJeux){
-    if(tablueDeJeu[emplacementTableJeux] == ''){
+function is_Dispo(emplacementTableJeux, tableauJeux){
+    if(tableauJeux[emplacementTableJeux] == ''){
         return true
     }
     else{
@@ -31,17 +28,16 @@ function is_Dispo(emplacementTableJeux){
 
 
 //Fonction de choix aléatoir du positionnement de l'element
-export default function drop_Element_alea(){
-    let caseJouee = Math.floor(Math.random() * tablueDeJeu.length)
-    console.log(caseJouee)
-    if(is_Dispo(caseJouee)){
-        placement_Element(caseJouee)
+export default function drop_Element_alea(tableauJeux){
+    let choixBon = true
+    let caseJouee
+    while(choixBon){
+        console.log(tableauJeux)
+        caseJouee = Math.floor(Math.random() * tableauJeux.length)
+        if(is_Dispo(caseJouee,tableauJeux)){
+            choixBon = false
+            return caseJouee
+        }
     }
-}
-
-
-//Fonction Positionnement de l'élément
-function placement_Element(caseJouee){
-    tablueDeJeu[caseJouee] = formeBot
-    cell[caseJouee].innerHTML = formeBot
+    
 }
