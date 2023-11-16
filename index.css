@@ -6,3 +6,11 @@
 .cell {
   @apply h-[100px] w-[100px] md:h-[200px] md:w-[200px] flex items-center justify-center border-text/40;
 }
+
+.cross {
+  @apply h-[50px] w-[50px] md:h-[100px] md:w-[100px] hover:scale-105 ease-in-out duration-200 transform;
+}
+
+.circle {
+  @apply h-[50px] w-[50px] md:h-[100px] md:w-[100px] hover:scale-105 ease-in-out duration-200 transform;
+}
