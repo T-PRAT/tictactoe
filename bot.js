@@ -16,17 +16,6 @@ const merciGoogle = [
   ];
 const formeBot = "O";
 
-//Fonction de vérification si la case est disponible
-function is_Dispo(emplacementTableJeux, tableauJeux){
-    if(tableauJeux[emplacementTableJeux] == ''){
-        return true
-    }
-    else{
-        return false
-    }
-}
-
-
 //Fonction de choix aléatoir du positionnement de l'element
 export default function drop_Element_alea(tableauJeux){
     let tableauIndiceCaseVide = []
