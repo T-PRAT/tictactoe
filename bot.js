@@ -25,7 +25,5 @@ export default function drop_Element_alea(tableauJeux){
         }
     }
     let indiceChoisie = Math.floor(Math.random() * tableauIndiceCaseVide.length)
-    console.log(tableauIndiceCaseVide)
-    console.log(tableauIndiceCaseVide[indiceChoisie])
     return tableauIndiceCaseVide[indiceChoisie]
 }
