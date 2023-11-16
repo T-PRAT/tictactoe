@@ -29,7 +29,7 @@ export default function drop_Element_alea(tableauJeux){
 }
 
 
-export default function drop_Element(tableauJeux){
+function drop_Element(tableauJeux){
     let tableauIndiceO = []
     let tableauIndiceX = []
 
@@ -41,4 +41,6 @@ export default function drop_Element(tableauJeux){
             tableauIndiceO.push(tableauJeux[i])
         }
     }
+
+
 }
