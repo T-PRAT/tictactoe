@@ -10,7 +10,7 @@
     <h1 class="text-5xl text-center p-12">Tic Tac Toe</h1>
     <div
       id="board"
-      class="bg-background-secondary grid z-21 grid-cols-3 gap-0 border-2 border-green rounded-lg shadow-[0_20px_50px_rgba(8,_112,_184,_0.7)] mx-auto w-[300px] h-[300px]] md:w-[600px] md:h-[600px]]"
+      class="bg-background-secondary grid grid-cols-3 gap-0 border-2 border-green rounded-lg shadow-[0_20px_50px_rgba(8,_112,_184,_0.7)] mx-auto w-[300px] h-[300px]] md:w-[600px] md:h-[600px]]"
     >
       <div class="cell border-r-2 border-b-2" id="cell-0">
         <svg class="hidden h-[50px] w-[50px] md:h-[100px] md:w-[100px]" viewBox="0 0 120 120" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -95,6 +95,18 @@
       </div>
     </div>
     <p class="text-center text-xl p-12">Cliquez sur une case pour jouer</p>
+    <div class="hidden">
+      <div class="fixed inset-0 bg-black bg-opacity-20 filter backdrop-blur-md z-10"></div>
+      <div
+        id="popup"
+        class="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 z-20 bg-background-primary p-12 rounded-lg border-2 shadow-[0_20px_50px_rgba(8,_112,_184,_0.7)]"
+      >
+        <p id="message" class="text-center text-2xl pb-12">Bien joué, tu as gagné !</p>
+        <button id="playagain" class="bg-background-secondary text-text font-default text-xl p-3 border-2 rounded-lg mx-28 w-[150px] md:w-[300px]">
+          Rejouer
+        </button>
+      </div>
+    </div>
     <script type="module" src="/main.js"></script>
   </body>
 </html>
