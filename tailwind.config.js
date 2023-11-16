@@ -11,6 +11,8 @@ export default {
         'primary': '#0A072C',
         'secondary': '#100B45',
       },
+      'pink': '#F2458D',
+      'green': '#D2E038',
       'black': '#000000',
     },
     extend: {

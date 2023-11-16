@@ -12,22 +12,10 @@ import bot_function from './bot'
 // Selectionner cases
 const cells = document.querySelectorAll(".cell");
 
-// Joueurs
-const joueur1 = "X";
-const bot = "O";
-
-// Bon symbole sur la case
-function writeSVG(isPlayer, i) {
-  //supprimer la classe hidden du svg
-  if (isPlayer) {
-    cells[i].children[0]?.classList.remove("hidden");
-  } else {
-    cells[i].children[1]?.classList.remove("hidden");
-  }
-}
+let isPlayerTurn = true;
 
 // Combinaisons possibles pour gagner
-const merciGoogle = [
+const winnerLine = [
   [0, 1, 2],
   [3, 4, 5],
   [6, 7, 8],
@@ -39,43 +27,79 @@ const merciGoogle = [
 ];
 
 // Initialiser le jeu
-let tablueDeJeu = ["", "", "", "", "", "", "", "", ""];
+let board = ["", "", "", "", "", "", "", "", ""];
 
-//EventListener pour chaque case du tableu
+// Bon symbole sur la case
+function writeSVG(isPlayer, i) {
+  //supprimer la classe hidden du svg
+  if (isPlayer) {
+    cells[i].children[1]?.classList.remove("hidden");
+  } else {
+    cells[i].children[0]?.classList.remove("hidden");
+    setTimeout(() => {
+      isPlayerTurn = true;
+    }, 200);
+  }
+}
+
+// Changer couleur de bordure
+function changeBorder(isPlayer) {
+  if (isPlayer) {
+    document.getElementById("board").style.borderColor = "rgba(210, 224, 56, 0.7)";
+  } else {
+    document.getElementById("board").style.borderColor = "rgba(242, 69, 141, 0.7)";
+  }
+}
+//EventListener pour chaque case du tableau
 cells.forEach((cell, index) => {
   cell.addEventListener("click", () => {
-    play(index);
+    if (isPlayerTurn) {
+      isPlayerTurn = false;
+      play(index);
+    }
   });
 });
 
 // Function pour enregistrer l'input du joueur et du bot
 function play(i) {
+  changeBorder(false);
   // Checker si la case sélectionnée n'est pas occupée ou si le jeu n'est pas terminé. Si ces conditions sont remplies, placer le symbole du joueur actuel dans la case.
-  if (tablueDeJeu[i] === "" && !isGameOver()) {
-    tablueDeJeu[i] = "X";
+  if (board[i] === "" && !isGameOver()) {
+    board[i] = "X";
     writeSVG(true, i);
-
     if (isGameOver()) {
       alert("Game Over"); // Si la function isGameOver est vrai une alerte aparait avec Game Over
       return;
     }
-    // Si joueur est le bot peut-etre l'appeller comme ça?
-    writeSVG(false, bot_function(tablueDeJeu));
+    // delai random entre 1s et 3s pour que le bot joue
+    setTimeout(() => {
+      writeSVG(false, bot_function(board));
+      changeBorder(true);
+    }, 1000);
   }
 };
 
 // Function pour checker si le jeu est fini
 function isGameOver() {
   // Ici le for loop check si une des combinaisons est presente dans le tableau
-  for (let i = 0; i < merciGoogle.length; i++) {
-    const [a, b, c] = merciGoogle[i];
+  for (let i = 0; i < winnerLine.length; i++) {
+    const [a, b, c] = winnerLine[i];
     if (
-      tablueDeJeu[a] !== "" &&
-      tablueDeJeu[a] === tablueDeJeu[b] &&
-      tablueDeJeu[a] === tablueDeJeu[c]
+      board[a] !== "" &&
+      board[a] === board[b] &&
+      board[a] === board[c]
     ) {
       return true; // Si une combinaison est présente le loop va se terminer et donc le jeu est terminé
     }
   }
-  return !tablueDeJeu.includes(""); // Si toutes les cases du tableau sont remplies le jeu se termine, sinon le jeu continue
+  return !board.includes(""); // Si toutes les cases du tableau sont remplies le jeu se termine, sinon le jeu continue
+};
+
+// Function pour reset le jeu
+function resetGame() {
+  board = ["", "", "", "", "", "", "", "", ""];
+  cells.forEach((cell) => {
+    cell.children[0]?.classList.add("hidden");
+    cell.children[1]?.classList.add("hidden");
+  });
 };
