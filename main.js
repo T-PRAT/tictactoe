@@ -9,6 +9,9 @@ import bot_function from './bot'
 
 // Selectionner cases
 const cells = document.querySelectorAll(".cell");
+const instruction = document.getElementById("instruction");
+const tabIcon = document.getElementById("tabIcon");
+console.log(tabIcon);
 
 
 let isPlayerTurn = true;
@@ -41,12 +44,18 @@ function writeSVG(isPlayer, i) {
   }
 }
 
-// Changer couleur de bordure
-function changeBorder(isPlayer) {
+// Changer couleur de bordure et message d'instruction et icone de la page et titre onglet
+function gameState(isPlayer) {
   if (isPlayer) {
     document.getElementById("board").style.borderColor = "rgba(210, 224, 56, 0.7)";
+    instruction.textContent = "C'est à ton tour !";
+    tabIcon.setAttribute("href", "./croix.svg");
+    document.title = "Tic Tac Toe - A toi !";
   } else {
     document.getElementById("board").style.borderColor = "rgba(242, 69, 141, 0.7)";
+    instruction.textContent = "C'est au tour du bot !";
+    tabIcon.setAttribute("href", "./rond.svg");
+    document.title = "Tic Tac Toe - Au bot !";
   }
 }
 
@@ -56,7 +65,7 @@ function play(i) {
   // Checker si la case sélectionnée n'est pas occupée ou si le jeu n'est pas terminé. Si ces conditions sont remplies, placer le symbole du joueur actuel dans la case.
   if (board[i] === "" && !isGameOver()) {
     board[i] = "X";
-    writeSVG(true, i); 
+    writeSVG(true, i);
     if (isGameOver()) {
       if (board.includes("")) {
         displayWinner("Player");
@@ -79,9 +88,9 @@ function play(i) {
           return;
         }
       }
-      changeBorder(true);
+      gameState(true);
     }, 1000);
-    changeBorder(false);
+    gameState(false);
   } else {
     isPlayerTurn = true; // Retourner au tour du joueur le placement est invalide
   }
@@ -93,10 +102,10 @@ function isGameOver() {
   for (let i = 0; i < winnerLine.length; i++) {
     const [a, b, c] = winnerLine[i];
     if (
-        board[a] !== "" &&
-        board[a] === board[b] &&
-        board[a] === board[c]
-      ) {
+      board[a] !== "" &&
+      board[a] === board[b] &&
+      board[a] === board[c]
+    ) {
       return true; // Si une combinaison est présente le loop va se terminer et donc le jeu est terminé
     }
   }
@@ -125,10 +134,11 @@ function displayWinner(winner) {
     message.textContent = "Bien joué, tu as gagné !";
   } else if (winner === "Bot") {
     message.textContent = "Dommage, le bot a gagné !";
-  } else if (winner === "Draw"){
+  } else if (winner === "Draw") {
     message.textContent = "C'est un match nul !";
   }
 
+  document.title = "Tic Tac Toe";
   // Faire aparaitre le popup
   popup.classList.remove("hidden");
 

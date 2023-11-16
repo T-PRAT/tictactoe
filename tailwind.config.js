@@ -14,6 +14,7 @@ export default {
       'pink': '#F2458D',
       'green': '#D2E038',
       'black': '#000000',
+      'transparent': 'transparent',
     },
     extend: {
       fontFamily: {
