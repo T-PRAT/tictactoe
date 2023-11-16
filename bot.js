@@ -16,28 +16,14 @@ const merciGoogle = [
   ];
 const formeBot = "O";
 
-//Fonction de vérification si la case est disponible
-function is_Dispo(emplacementTableJeux, tableauJeux){
-    if(tableauJeux[emplacementTableJeux] == ''){
-        return true
-    }
-    else{
-        return false
-    }
-}
-
-
 //Fonction de choix aléatoir du positionnement de l'element
 export default function drop_Element_alea(tableauJeux){
-    let choixBon = true
-    let caseJouee
-    while(choixBon){
-        console.log(tableauJeux)
-        caseJouee = Math.floor(Math.random() * tableauJeux.length)
-        if(is_Dispo(caseJouee,tableauJeux)){
-            choixBon = false
-            return caseJouee
+    let tableauIndiceCaseVide = []
+    for(let i=0; i<tableauJeux.length;i++){
+        if(tableauJeux[i]==''){
+            tableauIndiceCaseVide.push(i)
         }
     }
-    
+    let indiceChoisie = Math.floor(Math.random() * tableauIndiceCaseVide.length)
+    return tableauIndiceCaseVide[indiceChoisie]
 }
