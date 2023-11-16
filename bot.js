@@ -41,6 +41,4 @@ export default function drop_Element(tableauJeux){
             tableauIndiceO.push(tableauJeux[i])
         }
     }
-
-    
 }
