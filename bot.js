@@ -17,7 +17,7 @@ const merciGoogle = [
 const formeBot = "O";
 
 //Fonction de choix aléatoir du positionnement de l'element
-export default function drop_Element_alea(tableauJeux){
+function drop_Element_alea(tableauJeux){
     let tableauIndiceCaseVide = []
     for(let i=0; i<tableauJeux.length;i++){
         if(tableauJeux[i]==''){
@@ -29,18 +29,28 @@ export default function drop_Element_alea(tableauJeux){
 }
 
 
-function drop_Element(tableauJeux){
-    let tableauIndiceO = []
-    let tableauIndiceX = []
-
-    for (let i=0; i<tableauJeux; i++){
-        if(tableauJeux[i] == 'X'){
-            tableauIndiceX.push(tableauJeux[i])
+export default function drop_Element(tableauJeux){
+    let indiceChoisie = drop_Element_alea(tableauJeux)
+    let occurenceJoueur = []
+    let occurenceBot = []
+    for (let i=0; i<tableauJeux.length; i++){
+        if(tableauJeux[i] =="X"){
+            occurenceJoueur.push(i)
         }
-        else if(tableauJeux[i] == 'O'){
-            tableauIndiceO.push(tableauJeux[i])
+        else if(tableauJeux[i] == "O"){
+            occurenceBot.push(i)
         }
     }
 
-
+    merciGoogle.forEach(possibilite => {
+        if(possibilite.includes(occurenceJoueur[0]) && possibilite.includes(occurenceJoueur[1])){
+            for(let i=0; i<possibilite.length; i++){
+                if(tableauJeux[possibilite[i]] == ''){
+                    indiceChoisie = possibilite[i]
+                    console.log(possibilite)
+                }
+            }
+        }
+    })
+    return indiceChoisie
 }
