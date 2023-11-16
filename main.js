@@ -7,8 +7,6 @@ import bot_function from './bot'
 // Checker si victoire
 // Faire alerte si Victoire
 
-
-
 // Selectionner cases
 const cells = document.querySelectorAll(".cell");
 
@@ -46,19 +44,13 @@ function writeSVG(isPlayer, i) {
 function changeBorder(isPlayer) {
   if (isPlayer) {
     document.getElementById("board").style.borderColor = "rgba(210, 224, 56, 0.7)";
+    board[i] = "X";
   } else {
     document.getElementById("board").style.borderColor = "rgba(242, 69, 141, 0.7)";
+    board[i] = "O";
   }
 }
-//EventListener pour chaque case du tableau
-cells.forEach((cell, index) => {
-  cell.addEventListener("click", () => {
-    if (isPlayerTurn) {
-      isPlayerTurn = false;
-      play(index);
-    }
-  });
-});
+
 
 // Function pour enregistrer l'input du joueur et du bot
 function play(i) {
@@ -103,3 +95,13 @@ function resetGame() {
     cell.children[1]?.classList.add("hidden");
   });
 };
+
+//EventListener pour chaque case du tableau
+cells.forEach((cell, index) => {
+  cell.addEventListener("click", () => {
+    if (isPlayerTurn) {
+      isPlayerTurn = false;
+      play(index);
+    }
+  });
+});
