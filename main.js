@@ -7,8 +7,6 @@ import bot_function from './bot'
 // Checker si victoire
 // Faire alerte si Victoire
 
-
-
 // Selectionner cases
 const cells = document.querySelectorAll(".cell");
 
@@ -50,15 +48,7 @@ function changeBorder(isPlayer) {
     document.getElementById("board").style.borderColor = "rgba(242, 69, 141, 0.7)";
   }
 }
-//EventListener pour chaque case du tableau
-cells.forEach((cell, index) => {
-  cell.addEventListener("click", () => {
-    if (isPlayerTurn) {
-      isPlayerTurn = false;
-      play(index);
-    }
-  });
-});
+
 
 // Function pour enregistrer l'input du joueur et du bot
 function play(i) {
@@ -73,7 +63,9 @@ function play(i) {
     }
     // delai random entre 1s et 3s pour que le bot joue
     setTimeout(() => {
-      writeSVG(false, bot_function(board));
+      let botCase = bot_function(board);
+      writeSVG(false, botCase);
+      board[botCase] = "O";
       changeBorder(true);
     }, 1000);
   }
@@ -103,3 +95,13 @@ function resetGame() {
     cell.children[1]?.classList.add("hidden");
   });
 };
+
+//EventListener pour chaque case du tableau
+cells.forEach((cell, index) => {
+  cell.addEventListener("click", () => {
+    if (isPlayerTurn) {
+      isPlayerTurn = false;
+      play(index);
+    }
+  });
+});
