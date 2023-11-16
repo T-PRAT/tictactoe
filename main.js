@@ -1,4 +1,5 @@
 import "./index.css";
+import bot_function from './bot'
 
 // Detecter et enregistrer les clicks du joueur
   // Savoir si c'est joueur ou bot qui a joué
@@ -55,7 +56,7 @@ function inputJoueurActuel(i) {
     if (joueurActuel === bot) {
 
       // Apeller le bot?
-
+      bot_function()
     }
   }
 };

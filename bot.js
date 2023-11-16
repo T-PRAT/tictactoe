@@ -31,8 +31,9 @@ function is_Dispo(emplacementTableJeux){
 
 
 //Fonction de choix aléatoir du positionnement de l'element
-function drop_Element_alea(){
-    caseJouee = Math.random() * tablueDeJeu.length
+export default function drop_Element_alea(){
+    let caseJouee = Math.floor(Math.random() * tablueDeJeu.length)
+    console.log(caseJouee)
     if(is_Dispo(caseJouee)){
         placement_Element(caseJouee)
     }
@@ -44,5 +45,3 @@ function placement_Element(caseJouee){
     tablueDeJeu[caseJouee] = formeBot
     cell[caseJouee].innerHTML = formeBot
 }
-
-exporte.module()
