@@ -5,9 +5,6 @@ export default {
     "./src/**/*.{js,ts,jsx,tsx}",
   ],
   theme: {
-    fontFamily: {
-      'default': ['Lilita One', 'Roboto', 'sans-serif'],
-    },
     colors: {
       'text': '#EAE9FC',
       'background': {
@@ -16,6 +13,15 @@ export default {
       },
       'black': '#000000',
     },
+    extend: {
+      fontFamily: {
+        'default': ['Roboto', 'sans-serif'],
+      },
+      animation: {
+        'spin-slow': 'spin 3s linear infinite',
+      },
+    },
+
   },
   plugins: [],
 }
