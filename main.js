@@ -10,6 +10,7 @@ import bot_function from './bot'
 // Selectionner cases
 const cells = document.querySelectorAll(".cell");
 
+
 let isPlayerTurn = true;
 
 // Combinaisons possibles pour gagner
@@ -55,9 +56,14 @@ function play(i) {
   // Checker si la case sélectionnée n'est pas occupée ou si le jeu n'est pas terminé. Si ces conditions sont remplies, placer le symbole du joueur actuel dans la case.
   if (board[i] === "" && !isGameOver()) {
     board[i] = "X";
-    writeSVG(true, i);
+    writeSVG(true, i); 
     if (isGameOver()) {
-      alert("Player Won !"); // Si la function isGameOver est vrai une alerte aparait avec Player Won
+      if (board.includes("")) {
+        displayWinner("Player");
+      }
+      else {
+        displayWinner("Draw")
+      }
       return;
     }
     // delai random entre 1s et 3s pour que le bot joue
@@ -67,13 +73,15 @@ function play(i) {
         writeSVG(false, botCase);
         board[botCase] = "O";
         if (isGameOver()) {
-          alert("Bot Won !"); // Si la function isGameOver est vrai une alerte aparait avec Bot Won
+          if (board.includes("")) {
+            displayWinner("Bot");
+          }
           return;
         }
       }
       changeBorder(true);
     }, 1000);
-    changeBorder(false); 
+    changeBorder(false);
   } else {
     isPlayerTurn = true; // Retourner au tour du joueur le placement est invalide
   }
@@ -84,7 +92,7 @@ function isGameOver() {
   // Ici le for loop check si une des combinaisons est presente dans le tableau
   for (let i = 0; i < winnerLine.length; i++) {
     const [a, b, c] = winnerLine[i];
-      if (
+    if (
         board[a] !== "" &&
         board[a] === board[b] &&
         board[a] === board[c]
@@ -101,6 +109,33 @@ function resetGame() {
   cells.forEach((cell) => {
     cell.children[0]?.classList.add("hidden");
     cell.children[1]?.classList.add("hidden");
+  });
+  isPlayerTurn = true;
+};
+
+// Function pour montrer gagnant dans le popup
+function displayWinner(winner) {
+  // Definir constantes pour le popup
+  const popup = document.getElementById("popup");
+  const message = document.getElementById("message");
+  const playAgainButton = document.getElementById("playagain");
+
+  // Message dans le popup
+  if (winner === "Player") {
+    message.textContent = "Bien joué, tu as gagné !";
+  } else if (winner === "Bot") {
+    message.textContent = "Dommage, le bot a gagné !";
+  } else if (winner === "Draw"){
+    message.textContent = "C'est un match nul !";
+  }
+
+  // Faire aparaitre le popup
+  popup.classList.remove("hidden");
+
+  // Button de reset
+  playAgainButton.addEventListener("click", () => {
+    resetGame();
+    popup.classList.add("hidden");
   });
 };
 
