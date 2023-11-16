@@ -1,7 +1,6 @@
 //Fichier d'execution du scripte du bot
 
 //Création des Constantes utilisées par le bot
-const cell  = document.querySelectorAll('.cell')
 
 // Combinaisons possibles pour gagner
 const merciGoogle = [
@@ -14,6 +13,7 @@ const merciGoogle = [
     [0, 4, 8],
     [2, 4, 6],
   ];
+
 const formeBot = "O";
 
 //Fonction de choix aléatoir du positionnement de l'element
@@ -26,4 +26,21 @@ export default function drop_Element_alea(tableauJeux){
     }
     let indiceChoisie = Math.floor(Math.random() * tableauIndiceCaseVide.length)
     return tableauIndiceCaseVide[indiceChoisie]
+}
+
+
+export default function drop_Element(tableauJeux){
+    let tableauIndiceO = []
+    let tableauIndiceX = []
+
+    for (let i=0; i<tableauJeux; i++){
+        if(tableauJeux[i] == 'X'){
+            tableauIndiceX.push(tableauJeux[i])
+        }
+        else if(tableauJeux[i] == 'O'){
+            tableauIndiceO.push(tableauJeux[i])
+        }
+    }
+
+    
 }
