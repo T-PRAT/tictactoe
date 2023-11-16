@@ -15,14 +15,25 @@ export default {
     },
     extend: {
       fontFamily: {
-        'default': ['Roboto', 'sans-serif'],
+        'default': ['Lilita One', 'Roboto', 'sans-serif'],
       },
-      animation: {
-        'spin-slow': 'spin 3s linear infinite',
+      keyframes: {
+        pop: {
+          '0%': { transform: 'scale(0)' },
+          '50%': { transform: 'scale(1.2)' },
+          '100%': { transform: 'scale(1)' },
+        },
+        appear: {
+          '0%': { opacity: '0' },
+          '50%': { opacity: '0' },
+          '100%': { opacity: '1' },
+        },
+        animation: {
+          'pop': 'pop 1s ease-in-out',
+          'appear': 'appear 3s',
+        },
       },
     },
-
-  },
-  plugins: [],
+    plugins: [],
+  }
 }
-
