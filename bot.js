@@ -2,12 +2,17 @@
 import './index.css'
 
 //Création des Constantes utilisées par le bot
-const form  = document.getElementsByClassName('cell')
+const cell  = document.querySelectorAll('.cell')
 is_Dispo()
 
 //Fonction de vérification si la case est disponible
 function is_Dispo(){
-    console.log(form)
+    cell.forEach(cellules => {
+        var cellActive = cellules.childNodes
+        cellActive.forEach(element=>{
+            console.log(element.firstChild)//.parentNode.childNodes
+        })
+    })
 }
 
 
