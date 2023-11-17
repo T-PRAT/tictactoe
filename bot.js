@@ -41,24 +41,27 @@ export default function drop_Element(tableauJeux){
             occurenceBot.push(i)
         }
     }
-
-    winCase.forEach(possibilite => {
-        if(possibilite.includes(occurenceJoueur[0]) && possibilite.includes(occurenceJoueur[1])){
-            for(let i=0; i<possibilite.length; i++){
-                if(tableauJeux[possibilite[i]] == ''){
-                    indiceChoisie = possibilite[i]
-                    console.log(possibilite)
+    if((occurenceJoueur.length && occurenceJoueur.length) == 0){
+        indiceChoisie = drop_Element_alea(tableauJeux)
+    }
+    else{
+        winCase.forEach(possibilite => {
+            if(possibilite.includes(occurenceJoueur[0]) && possibilite.includes(occurenceJoueur[1])){
+                for(let i=0; i<possibilite.length; i++){
+                    if(tableauJeux[possibilite[i]] == ''){
+                        indiceChoisie = possibilite[i]
+                    }
                 }
             }
-        }
-        else if (possibilite.includes(occurenceBot[0]) && possibilite.includes(occurenceBot[1])){
-            for(let i=0; i<possibilite.length; i++){
-                if(tableauJeux[possibilite[i]] == ''){
-                    indiceChoisie = possibilite[i]
-                    console.log(possibilite)
+            else if (possibilite.includes(occurenceBot[0]) && possibilite.includes(occurenceBot[1])){
+                for(let i=0; i<possibilite.length; i++){
+                    if(tableauJeux[possibilite[i]] == ''){
+                        indiceChoisie = possibilite[i]
+                    }
                 }
             }
-        }
-    })
+        })
+    }
+    
     return indiceChoisie
 }
