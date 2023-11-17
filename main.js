@@ -88,9 +88,9 @@ function play(i) {
           return;
         }
       }
-      gameState(true);
+      gameState = true;
     }, 1000);
-    gameState(false);
+    gameState = false;
   } else {
     isPlayerTurn = true; // Retourner au tour du joueur le placement est invalide
   }
