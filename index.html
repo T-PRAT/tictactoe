@@ -8,10 +8,14 @@
   </head>
   <body class="h-screen w-screen bg-background-primary text-text font-default">
     <h1
-      class="text-4xl md:text-7xl text-center p-12 font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-green from-40% via-text to-pink to-60%"
+      class="text-4xl md:text-7xl text-center p-10 font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-green from-40% via-text to-pink to-60%"
     >
       Tic Tac Toe
     </h1>
+    <div class="flex justify-between p-2 text-center mx-auto w-[300px] h-[300px]] md:w-[600px] md:h-[600px]]">
+      <p>Me:<span id="myScore" class="text-xl ml-2 text-green">0</span></p>
+      <p>Bot:<span id="botScore" class="text-xl ml-2 text-pink">0</span></p>
+    </div>
     <div
       id="board"
       class="bg-background-secondary grid grid-cols-3 gap-0 border-2 border-green rounded-lg shadow-[0_20px_50px_rgba(8,_112,_184,_0.7)] mx-auto w-[300px] h-[300px]] md:w-[600px] md:h-[600px]]"
@@ -98,7 +102,7 @@
         </svg>
       </div>
     </div>
-    <p id="instruction" class="text-center text-lg p-12">Cliquez sur une case pour jouer</p>
+    <p id="instruction" class="text-lg text-center text-text/60 py-8">Cliquez sur une case pour jouer</p>
     <div id="popup" class="hidden">
       <div class="fixed inset-0 bg-black bg-opacity-20 filter backdrop-blur-md z-10"></div>
       <div
