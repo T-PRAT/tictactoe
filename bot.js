@@ -3,7 +3,7 @@
 //Création des Constantes utilisées par le bot
 
 // Combinaisons possibles pour gagner
-const scenariosVictoire = [
+const winCase = [
     [0, 1, 2],
     [3, 4, 5],
     [6, 7, 8],
@@ -42,7 +42,7 @@ export default function drop_Element(tableauJeux){
         }
     }
 
-    scenariosVictoire.forEach(possibilite => {
+    winCase.forEach(possibilite => {
         if(possibilite.includes(occurenceJoueur[0]) && possibilite.includes(occurenceJoueur[1])){
             for(let i=0; i<possibilite.length; i++){
                 if(tableauJeux[possibilite[i]] == ''){
