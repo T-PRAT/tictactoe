@@ -1,17 +1,14 @@
 import "./index.css";
-import bot_function from './bot'
-
-// Detecter et enregistrer les clicks du joueur
-// Savoir si c'est joueur ou bot qui a joué
-// Savoir le bon symbole a mettre dans le tableau
-// Checker si victoire
-// Faire alerte si Victoire
+import bot_function from "./bot";
 
 // Selectionner cases
 const cells = document.querySelectorAll(".cell");
 const instruction = document.getElementById("instruction");
 const tabIcon = document.getElementById("tabIcon");
-console.log(tabIcon);
+const myScore = document.getElementById("myScore");
+const botScore = document.getElementById("botScore");
+const drawScore = document.getElementById("drawScore");
+const resetScore = document.getElementById("reset")
 
 
 let isPlayerTurn = true;
@@ -31,6 +28,45 @@ const winnerLine = [
 // Initialiser le jeu
 let board = ["", "", "", "", "", "", "", "", ""];
 
+let score = {
+  Player: 0,
+  Bot: 0,
+  Draw: 0,
+};
+
+// Recuperer le score dans le local storage
+if (localStorage.getItem("score")) {
+  score = JSON.parse(localStorage.getItem("score"));
+  myScore.textContent = score.Player;
+  botScore.textContent = score.Bot;
+  drawScore.textContent = score.Draw;
+}
+
+//EventListener pour chaque case du tableau
+cells.forEach((cell, index) => {
+  cell.addEventListener("click", () => {
+    if (isPlayerTurn) {
+      isPlayerTurn = false;
+      play(index);
+    }
+  });
+});
+
+resetScore.addEventListener("click", () => {
+  resetScores();
+});
+
+// Function pour reset les scores
+function resetScores() {
+  score.Player = 0;
+  score.Bot = 0;
+  score.Draw = 0;
+  myScore.textContent = score.Player;
+  botScore.textContent = score.Bot;
+  drawScore.textContent = score.Draw;
+  localStorage.setItem("score", JSON.stringify(score));
+}
+
 // Bon symbole sur la case
 function writeSVG(isPlayer, i) {
   //supprimer la classe hidden du svg
@@ -45,7 +81,8 @@ function writeSVG(isPlayer, i) {
 }
 
 // Changer couleur de bordure et message d'instruction et icone de la page et titre onglet
-function gameState(isPlayer) {
+function gameStatus(isPlayer) {
+  isPlayerTurn = isPlayer;
   if (isPlayer) {
     document.getElementById("board").style.borderColor = "rgba(210, 224, 56, 0.7)";
     instruction.textContent = "C'est à ton tour !";
@@ -59,58 +96,44 @@ function gameState(isPlayer) {
   }
 }
 
-
 // Function pour enregistrer l'input du joueur et du bot
 function play(i) {
   // Checker si la case sélectionnée n'est pas occupée ou si le jeu n'est pas terminé. Si ces conditions sont remplies, placer le symbole du joueur actuel dans la case.
-  if (board[i] === "" && !isGameOver()) {
+  if (board[i] === "") {
+    gameStatus(false);
     board[i] = "X";
     writeSVG(true, i);
     if (isGameOver()) {
-      if (board.includes("")) {
-        displayWinner("Player");
-      }
-      else {
-        displayWinner("Draw")
-      }
+      displayWinner("Player");
       return;
     }
-    // delai random entre 1s et 3s pour que le bot joue
     setTimeout(() => {
       let botCase = bot_function(board);
       if (board[botCase] === "") {
         writeSVG(false, botCase);
         board[botCase] = "O";
+        gameStatus(true);
         if (isGameOver()) {
-          if (board.includes("")) {
-            displayWinner("Bot");
-          }
+          displayWinner("Bot");
           return;
         }
       }
-      gameState = true;
     }, 1000);
-    gameState = false;
-  } else {
-    isPlayerTurn = true; // Retourner au tour du joueur le placement est invalide
   }
-};
+}
 
 // Function pour checker si le jeu est fini
 function isGameOver() {
   // Ici le for loop check si une des combinaisons est presente dans le tableau
   for (let i = 0; i < winnerLine.length; i++) {
     const [a, b, c] = winnerLine[i];
-    if (
-      board[a] !== "" &&
-      board[a] === board[b] &&
-      board[a] === board[c]
-    ) {
+    if (board[a] !== "" && board[a] === board[b] && board[a] === board[c]) {
       return true; // Si une combinaison est présente le loop va se terminer et donc le jeu est terminé
     }
   }
-  return !board.includes(""); // Si toutes les cases du tableau sont remplies le jeu se termine, sinon le jeu continue
-};
+  if (!board.includes(""))
+    displayWinner("Draw");
+}
 
 // Function pour reset le jeu
 function resetGame() {
@@ -119,9 +142,8 @@ function resetGame() {
     cell.children[0]?.classList.add("hidden");
     cell.children[1]?.classList.add("hidden");
   });
-  gameState = true
-  isPlayerTurn = true;
-};
+  gameStatus(true);
+}
 
 // Function pour montrer gagnant dans le popup
 function displayWinner(winner) {
@@ -132,30 +154,29 @@ function displayWinner(winner) {
 
   // Message dans le popup
   if (winner === "Player") {
+    score.Player += 1;
+    myScore.textContent = score.Player;
     message.textContent = "Bien joué, tu as gagné !";
   } else if (winner === "Bot") {
+    score.Bot += 1;
+    botScore.textContent = score.Bot;
     message.textContent = "Dommage, le bot a gagné !";
   } else if (winner === "Draw") {
+    score.Draw += 1;
+    drawScore.textContent = score.Draw;
     message.textContent = "C'est un match nul !";
   }
-
+  // Enregistrer le score dans le local storage
+  localStorage.setItem("score", JSON.stringify(score));
   document.title = "Tic Tac Toe";
   // Faire aparaitre le popup
-  popup.classList.remove("hidden");
-
+  setTimeout(() => {
+    popup.classList.remove("hidden");
+  }, 500);
   // Button de reset
   playAgainButton.addEventListener("click", () => {
     resetGame();
     popup.classList.add("hidden");
   });
-};
+}
 
-//EventListener pour chaque case du tableau
-cells.forEach((cell, index) => {
-  cell.addEventListener("click", () => {
-    if (isPlayerTurn) {
-      isPlayerTurn = false;
-      play(index);
-    }
-  });
-});
