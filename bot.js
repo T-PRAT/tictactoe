@@ -51,6 +51,14 @@ export default function drop_Element(tableauJeux){
                 }
             }
         }
+        else if (possibilite.includes(occurenceBot[0]) && possibilite.includes(occurenceBot[1])){
+            for(let i=0; i<possibilite.length; i++){
+                if(tableauJeux[possibilite[i]] == ''){
+                    indiceChoisie = possibilite[i]
+                    console.log(possibilite)
+                }
+            }
+        }
     })
     return indiceChoisie
 }
