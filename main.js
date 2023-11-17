@@ -119,6 +119,7 @@ function resetGame() {
     cell.children[0]?.classList.add("hidden");
     cell.children[1]?.classList.add("hidden");
   });
+  gameState = true
   isPlayerTurn = true;
 };
 
