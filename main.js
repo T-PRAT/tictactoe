@@ -98,6 +98,10 @@ function gameStatus(isPlayer) {
 
 // Function pour enregistrer l'input du joueur et du bot
 function play(i) {
+  // Checker si le jeu est deja fini avant proceder a l'enregistrement des inputs
+  if (isGameOver()) {
+    return;
+  }
   // Checker si la case sélectionnée n'est pas occupée ou si le jeu n'est pas terminé. Si ces conditions sont remplies, placer le symbole du joueur actuel dans la case.
   if (board[i] === "") {
     gameStatus(false);
